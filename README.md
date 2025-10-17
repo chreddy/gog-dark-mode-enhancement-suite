@@ -20,4 +20,4 @@ A comprehensive Tampermonkey userscript that enhances the dark mode experience o
 - Orders Page: Properly aligns "Orders history" text and search field at the same height
 
 ### Installation
-Open this link, after you've installed Tampermonkey: https://github.com/chreddy/gog-dark-mode-enhancement-suite/blob/main/ultimate.user.js
+Open this link, after you've installed Tampermonkey: https://github.com/chreddy/gog-dark-mode-enhancement-suite/blob/main/gog-dark-mode-enhancement-suite.user.js
