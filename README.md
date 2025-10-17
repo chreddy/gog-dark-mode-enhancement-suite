@@ -2,7 +2,7 @@
 A comprehensive userscript that enhances the dark mode experience on GOG.com and fixes visual bugs.
 
 ### Dark Mode Enhancements
-- Library Page: Fixes bright separator lines between games that were visible in dark mode, now shows proper dark separators that work at all zoom levels (including 90%)  
+- Library Page: Fixes bright separator lines between games that were visible in dark mode, now shows proper dark separators that work at all zoom levels  
 - Settings Pages: Fixes dropdown menus, input fields, checkboxes, and radio buttons to have proper dark backgrounds and visible text  
 - Wallet Page: Adjusts transaction header background color to match the dark theme  
 - Download Popups: Changes the dropdown arrow from black to white to match the overall theme
