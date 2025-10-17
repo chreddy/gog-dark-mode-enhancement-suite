@@ -8,8 +8,8 @@
 // @match        https://www.gog.com/wallet*
 // @match        https://www.gog.com/*/account*
 // @match        https://www.gog.com/*/wallet*
-// @updateURL    https://github.com/chreddy/gog-dark-mode-enhancement-suite/blob/main/gog-dark-mode-enhancement-suite.user.js
-// @downloadURL  https://github.com/chreddy/gog-dark-mode-enhancement-suite/blob/main/gog-dark-mode-enhancement-suite.user.js
+// @updateURL    https://github.com/chreddy/gog-dark-mode-enhancement-suite/raw/refs/heads/main/gog-dark-mode-enhancement-suite.user.js
+// @downloadURL  https://github.com/chreddy/gog-dark-mode-enhancement-suite/raw/refs/heads/main/gog-dark-mode-enhancement-suite.user.js
 // @grant        GM_addStyle
 // @run-at       document-start
 // ==/UserScript==
@@ -571,4 +571,5 @@
         setTimeout(cleanOrdersURL, 500);
         setTimeout(cleanOrdersURL, 1500);
     }
+
 })();
