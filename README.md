@@ -25,12 +25,21 @@ A comprehensive Tampermonkey userscript that enhances the dark mode experience o
 2) Open this link to install the userscript: https://raw.githubusercontent.com/chreddy/gog-dark-mode-enhancement-suite/master/gog-dark-mode-enhancement-suite.user.js
 
 ## Screenshots
-Library - Before:  
-![screenshot](https://raw.githubusercontent.com/chreddy/gog-dark-mode-enhancement-suite/master/img/library-before.png)  
-Library - After:  
-![screenshot](https://raw.githubusercontent.com/chreddy/gog-dark-mode-enhancement-suite/master/img/library-after.png)
+### Library
 
-Dropdown - Before:  
-![screenshot](https://raw.githubusercontent.com/chreddy/gog-dark-mode-enhancement-suite/master/img/dropdown-before.png)  
-Dropdown - After:  
-![screenshot](https://raw.githubusercontent.com/chreddy/gog-dark-mode-enhancement-suite/master/img/dropdown-after.png)
+<p align="center">
+   <img src="img/library-before.png" width="45%">
+   <img src="img/library-after.png" width="45%">
+</p>
+<p align="center">
+  <i>Before and after images of the library</i>
+</p>
+
+### Dropdowns
+<p align="center">
+   <img src="img/dropdown-before.png" width="45%">
+   <img src="img/dropdown-after.png" width="45%">
+</p>
+<p align="center">
+  <i>Before and after images of dropdowns</i>
+</p>
