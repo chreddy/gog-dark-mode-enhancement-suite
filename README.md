@@ -12,7 +12,7 @@ A comprehensive userscript that enhances the dark mode experience on GOG.com and
 - Orders Page: Removes unnecessary borders and spinners while searching
 
 ### Quality of Life Improvements
-- Wishlist: Upgrades game cover images from 100px to 196px resolution (392px for retina displays)
+- Wishlist: Game artwork upgraded from 100px to 196px resolution (392px for retina displays), same as the Library page
 
 ### General Bug Fixes (Work in Both Modes)
 - Orders Page: Fixes URL hash duplication bug where search terms would accumulate !%2F prefixes on each reload  
