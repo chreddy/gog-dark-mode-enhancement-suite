@@ -1,5 +1,5 @@
 # GOG Dark Mode Enhancement Suite
-A comprehensive Tampermonkey userscript that enhances the dark mode experience on GOG.com and fixes visual bugs.
+A comprehensive userscript that enhances the dark mode experience on GOG.com and fixes visual bugs.
 
 ### Dark Mode Enhancements
 - Library Page: Fixes bright separator lines between games that were visible in dark mode, now shows proper dark separators that work at all zoom levels (including 90%)  
