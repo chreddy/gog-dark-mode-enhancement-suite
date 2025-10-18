@@ -1,12 +1,14 @@
 // ==UserScript==
 // @name         GOG Dark Mode Enhancement Suite
 // @namespace    gog-dark-mode-enhancement-suite
-// @version      1.0
+// @version      1.0.1
 // @description  Enhances GOG.com dark mode with styling fixes, bug fixes, and UI improvements
 // @author       chreddy
 // @match        https://www.gog.com/account*
+// @match        https://www.gog.com/redeem*
 // @match        https://www.gog.com/wallet*
 // @match        https://www.gog.com/*/account*
+// @match        https://www.gog.com/*/redeem*
 // @match        https://www.gog.com/*/wallet*
 // @updateURL    https://github.com/chreddy/gog-dark-mode-enhancement-suite/raw/refs/heads/main/gog-dark-mode-enhancement-suite.user.js
 // @downloadURL  https://github.com/chreddy/gog-dark-mode-enhancement-suite/raw/refs/heads/main/gog-dark-mode-enhancement-suite.user.js
@@ -49,6 +51,22 @@
             background-color: transparent !important;
         }
 
+        /* Fix download dropdown arrow color in game/movie details popup */
+        html[data-theme="dark"] .game-details__header-icon,
+        html[data-theme="dark"] .module-header2__element svg,
+        html[data-theme="dark"] .module-header2__element--selected svg {
+            fill: #f2f2f2 !important;
+            color: #f2f2f2 !important;
+        }
+
+        /* Also target the use element and paths inside SVG */
+        html[data-theme="dark"] .game-details__header-icon use,
+        html[data-theme="dark"] .game-details__header-icon path,
+        html[data-theme="dark"] .module-header2__element svg use,
+        html[data-theme="dark"] .module-header2__element svg path {
+            fill: #f2f2f2 !important;
+        }
+		
         /* LIST VIEW ONLY: Remove the original border and any margins/gaps */
         html[data-theme="dark"] .list--rows .product-row {
             border-top: none !important;
@@ -237,6 +255,10 @@
             background-color: #3d3d3d !important;
         }
 
+        html[data-theme="dark"] .tag-item .tag-input__inside-options {
+            background-color: transparent !important;
+        }
+
         /* Cancel button styling */
         html[data-theme="dark"] .tag-input__option,
         html[data-theme="dark"] a.tag-input__option {
@@ -329,20 +351,25 @@
             color: #f2f2f2 !important;
         }
 
-        /* Fix download dropdown arrow color in game/movie details popup */
-        html[data-theme="dark"] .game-details__header-icon,
-        html[data-theme="dark"] .module-header2__element svg,
-        html[data-theme="dark"] .module-header2__element--selected svg {
-            fill: #f2f2f2 !important;
+        /* ===== REDEEM PAGE FIXES (Dark Mode Only) ===== */
+        /* Fixes checkbox background colors as well as the reCAPTCHA text color */
+        html[data-theme="dark"] .select-products-text,
+        html[data-theme="dark"] .captchaText .externalLink {
             color: #f2f2f2 !important;
         }
 
-        /* Also target the use element and paths inside SVG */
-        html[data-theme="dark"] .game-details__header-icon use,
-        html[data-theme="dark"] .game-details__header-icon path,
-        html[data-theme="dark"] .module-header2__element svg use,
-        html[data-theme="dark"] .module-header2__element svg path {
-            fill: #f2f2f2 !important;
+        html[data-theme="dark"] .captchaText {
+            color: #a0a0a0 !important;
+        }
+
+        html[data-theme="dark"] .select-checkbox,
+        html[data-theme="dark"] .select-products-checkbox {
+            background-color: #f2f2f2 !important;
+        }
+
+        html[data-theme="dark"] .select-checkbox:focus,
+        html[data-theme="dark"] .select-products-checkbox:focus {
+            background-color: #f2f2f2 !important;
         }
     `;
 
@@ -429,6 +456,22 @@
                 }
             }, 500);
         });
+    }
+
+    // ===== ACCOUNT PAGES: FIX MENU COLORS =====
+    if (window.location.pathname.includes('/account')) {
+        const style = document.createElement('style');
+        style.textContent = `
+            html[data-theme="dark"] nav.menu {
+                --c-ui-primary: #303030 !important;
+                --c-background: #1a1a1a !important;
+            }
+
+            html[data-theme="dark"] .menu-header.menu-account__user {
+                background-color: #212121 !important;
+            }
+        `;
+        document.head.appendChild(style);
     }
 
     // ===== BUG FIXES =====
@@ -571,5 +614,4 @@
         setTimeout(cleanOrdersURL, 500);
         setTimeout(cleanOrdersURL, 1500);
     }
-
 })();
