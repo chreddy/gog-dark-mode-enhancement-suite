@@ -42,3 +42,6 @@ A comprehensive userscript that enhances the dark mode experience on GOG.com and
 <p align="center">
   <i>Before and after images of dropdowns</i>
 </p>
+
+## Changelog
+See [CHANGELOG.md](CHANGELOG.md) for a list of all changes.
