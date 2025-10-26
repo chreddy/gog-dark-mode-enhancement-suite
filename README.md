@@ -3,7 +3,7 @@ A comprehensive userscript that enhances the dark mode experience on GOG.com and
 
 ## Features
 - **Visual Improvements**: Enhances colors, backgrounds, and UI consistency in dark mode
-- **Bug Fixes**: Resolves various GOG.com issues including broken links and search functionality
+- **Bug Fixes**: Resolves various issues including broken links and search functionality
 - **Quality of Life**: Better image quality, improved navigation, and additional useful links
 
 See [CHANGELOG.md](CHANGELOG.md) for a list of all changes.
