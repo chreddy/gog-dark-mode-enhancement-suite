@@ -1,17 +1,25 @@
 # Changelog
 
+All notable changes to the GOG Dark Mode Enhancement Suite will be documented in this file.
+
 ## Version 1.1 (2025-10-26)
-- Account menu: Cloud saves link added
-- Account menu: Fix for the label alignment
-- User pages: Fixed broken profile links (View Profile and username links now work correctly)
-- User pages: Account menu colors fixed
-- Removed redundant Javascript (now handled by CSS)
-- Reorganized sections and enhanced comments for better maintainability and readability
+- Account menu: Cloud saves link added for quick access
+- Account menu: Fixed alignment of item count labels (Library, Movies, Wishlist numbers)
+- User pages: Fixed broken profile links (View Profile and username links now points correctly to the userpage)
+- User pages: Applied account menu color fixes to user wishlist pages
+- Code organization: Reorganized sections and enhanced comments for better maintainability and readability
+- Removed redundant JavaScript
 
 ## Version 1.0.1 (2025-10-18)
-- Fixed menu header background color on the account pages
-- Fixed checkbox background colors and reCAPTCHA text color on the redeem page
-- Fixed background on tags on the settings page
+- Redeem page: Fixed colors in dark mode
+- Account menu: Fixed the menu colors in dark mode
+- Fixed: Store link now uses relative URL for consistent navigation
 
 ## Version 1.0 (2025-10-17)
-- Initial release
+- Initial release with general dark mode color enhancements (dropdown menus, input fields, checkboxes, radio buttons, background colors and borders)
+- Library page: Fixed the separator line between games, so it now shows up at all zoom levels, and in both dark and light mode
+- Orders page: Fixed text capitalization in filter dropdown options
+- Orders page: Fixed layout of search-field
+- Orders page: Fixed URL hash duplication bug preventing search results after reload
+- Wallet page: Fixed colors on the transactions header
+- Wishlist page: Upgraded product images to double resolution (196px, 392px for retina displays)
