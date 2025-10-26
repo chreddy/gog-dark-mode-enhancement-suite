@@ -1,21 +1,12 @@
 # GOG Dark Mode Enhancement Suite
 A comprehensive userscript that enhances the dark mode experience on GOG.com and fixes visual bugs.
 
-### Dark Mode Enhancements
-- Library Page: Fixes bright separator lines between games that were visible in dark mode, also makes sure that separators works at all zoom levels  
-- Settings Pages: Fixes dropdown menus, input fields, checkboxes and radio buttons to have proper dark backgrounds and visible text  
-- Wallet Page: Adjusts transaction header background color to match the dark theme  
+## Features
+- **Visual Improvements**: Enhances colors, backgrounds, and UI consistency in dark mode
+- **Bug Fixes**: Resolves various GOG.com issues including broken links and search functionality
+- **Quality of Life**: Better image quality, improved navigation, and additional useful links
 
-### Light Mode Fixes
-- Library Page: Ensures separator lines display consistently between games at all zoom levels (fixes the same zoom rendering issue that also existed in dark mode)  
-- Orders Page: Removes unnecessary borders and spinners while searching
-
-### Quality of Life Improvements
-- Wishlist: Game artwork upgraded from 100px to 196px resolution (392px for retina displays), same as on the Library page
-
-### General Bug Fixes
-- Orders Page: Resolves an issue causing search terms in the URL to gain repeated !%2F prefixes after reloads  
-- Orders Page: Properly aligns "Orders history" text and search field at the same height
+See [CHANGELOG.md](CHANGELOG.md) for a list of all changes.
 
 ## Installation
 1) Install a Userscript manager, such as Tampermonkey or Violentmonkey:
@@ -42,6 +33,3 @@ A comprehensive userscript that enhances the dark mode experience on GOG.com and
 <p align="center">
   <i>Before and after images of dropdowns</i>
 </p>
-
-## Changelog
-See [CHANGELOG.md](CHANGELOG.md) for a list of all changes.
