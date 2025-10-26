@@ -1,15 +1,10 @@
 // ==UserScript==
 // @name         GOG Dark Mode Enhancement Suite
 // @namespace    gog-dark-mode-enhancement-suite
-// @version      1.0.1
+// @version      1.1
 // @description  Enhances GOG.com dark mode with styling fixes, bug fixes, and UI improvements
 // @author       chreddy
-// @match        https://www.gog.com/account*
-// @match        https://www.gog.com/redeem*
-// @match        https://www.gog.com/wallet*
-// @match        https://www.gog.com/*/account*
-// @match        https://www.gog.com/*/redeem*
-// @match        https://www.gog.com/*/wallet*
+// @match        https://www.gog.com/*
 // @updateURL    https://github.com/chreddy/gog-dark-mode-enhancement-suite/raw/refs/heads/main/gog-dark-mode-enhancement-suite.user.js
 // @downloadURL  https://github.com/chreddy/gog-dark-mode-enhancement-suite/raw/refs/heads/main/gog-dark-mode-enhancement-suite.user.js
 // @grant        GM_addStyle
@@ -66,7 +61,7 @@
         html[data-theme="dark"] .module-header2__element svg path {
             fill: #f2f2f2 !important;
         }
-		
+
         /* LIST VIEW ONLY: Remove the original border and any margins/gaps */
         html[data-theme="dark"] .list--rows .product-row {
             border-top: none !important;
@@ -373,20 +368,109 @@
         }
     `;
 
-    if (typeof GM_addStyle !== 'undefined') {
-        GM_addStyle(cssRules);
-    } else {
-        const style = document.createElement('style');
-        style.id = 'gog-dark-mode-enhancement-suite-fix';
-        style.textContent = cssRules;
-
-        if (document.head || document.documentElement) {
-            (document.head || document.documentElement).appendChild(style);
+    // Only apply CSS on specific pages
+    if (window.location.pathname.includes('/account') || window.location.pathname.includes('/redeem') || window.location.pathname.includes('/wallet')) {
+        if (typeof GM_addStyle !== 'undefined') {
+            GM_addStyle(cssRules);
         } else {
-            document.addEventListener('DOMContentLoaded', () => {
-                document.head.appendChild(style);
-            });
+            const style = document.createElement('style');
+            style.id = 'gog-dark-mode-enhancement-suite-fix';
+            style.textContent = cssRules;
+
+            if (document.head || document.documentElement) {
+                (document.head || document.documentElement).appendChild(style);
+            } else {
+                document.addEventListener('DOMContentLoaded', () => {
+                    document.head.appendChild(style);
+                });
+            }
         }
+    }
+
+    // ===== ACCOUNT MENU: ADD CLOUD SAVES LINK =====
+    function addCloudSavesLink() {
+        if (document.querySelector('a[href="/account/cloud-saves"]')) {
+            return;
+        }
+
+        const redeemLink = document.querySelector('a[href="/en/redeem"]');
+        if (redeemLink) {
+            const redeemItem = redeemLink.closest('.menu-submenu-item');
+            const cloudSavesItem = document.createElement('div');
+            cloudSavesItem.className = 'menu-submenu-item menu-submenu-item--hover';
+            cloudSavesItem.innerHTML = `
+                <a href="/account/cloud-saves" class="menu-submenu-link">
+                    Cloud saves
+                </a>
+            `;
+
+            redeemItem.parentNode.insertBefore(cloudSavesItem, redeemItem);
+        }
+    }
+
+    // ===== ACCOUNT MENU: FIX ALIGNMENT =====
+	const style = document.createElement('style');
+	style.textContent = `
+		.menu-submenu-item__label {
+			display: inline-block !important;
+			vertical-align: middle !important;
+			margin-top: -2px !important;
+		}
+	`;
+	document.head.appendChild(style);
+
+    // ===== ACCOUNT MENU: FIX MENU COLORS (select pages only) =====
+    if (window.location.pathname.includes('/account') ||
+        window.location.pathname.includes('/wallet') ||
+        (window.location.pathname.includes('/u/') && !window.location.pathname.match(/\/u\/[^\/]+\/?$/))) {
+        const style = document.createElement('style');
+        style.textContent = `
+            html[data-theme="dark"] nav.menu {
+                --c-ui-primary: #303030 !important;
+                --c-background: #1a1a1a !important;
+            }
+
+            html[data-theme="dark"] .menu-header.menu-account__user {
+                background-color: #212121 !important;
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+    // ===== LIBRARY PAGE: DROPDOWN ICON FIX =====
+    // Fix the hardcoded black fill in the dropdown-down icon
+    function fixDropdownIcon() {
+        const symbol = document.querySelector('#icon-dropdown-down');
+        if (symbol) {
+            const path = symbol.querySelector('path');
+            if (path) {
+                // Check current theme
+                const isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark';
+
+                if (isDarkMode) {
+                    path.setAttribute('fill', '#f2f2f2');
+                } else {
+                    // Restore original black color in light mode
+                    path.setAttribute('fill', '#000000');
+                }
+            }
+        }
+    }
+
+    // ===== USER PAGES: FIX MENU COLORS =====
+    if (window.location.pathname.includes('/u/')) {
+        const style = document.createElement('style');
+        style.textContent = `
+            html[data-theme="dark"] .user__data.user__data--with-orion-project-link {
+                border-color: var(--c-ui-tertiary) !important;
+                background: var(--c-ui-primary) !important;
+            }
+            html[data-theme="dark"] .user__item.user__item:not(.user__item--header) {
+                border-top: 1px solid #404040;
+				background: var(--c-ui-primary) !important;
+            }
+        `;
+        document.head.appendChild(style);
     }
 
     // ===== WISHLIST PAGE: UPGRADE IMAGES TO HIGHER RESOLUTION =====
@@ -442,92 +526,10 @@
         });
     }
 
-    // ===== LIBRARY PAGE: DIRECT MANIPULATION AS BACKUP =====
-    // Only apply in dark mode
-    if (window.location.pathname.includes('/account') && !window.location.pathname.includes('/settings') && !window.location.pathname.includes('/wishlist')) {
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                // Check if dark mode is active
-                if (document.documentElement.getAttribute('data-theme') === 'dark') {
-                    const container = document.querySelector('.account__products.list--rows');
-                    if (container) {
-                        container.style.backgroundColor = '#404040';
-                    }
-                }
-            }, 500);
-        });
-    }
-
-    // ===== ACCOUNT PAGES: FIX MENU COLORS =====
-    if (window.location.pathname.includes('/account')) {
-        const style = document.createElement('style');
-        style.textContent = `
-            html[data-theme="dark"] nav.menu {
-                --c-ui-primary: #303030 !important;
-                --c-background: #1a1a1a !important;
-            }
-
-            html[data-theme="dark"] .menu-header.menu-account__user {
-                background-color: #212121 !important;
-            }
-        `;
-        document.head.appendChild(style);
-    }
-
     // ===== BUG FIXES =====
-    // Note: Text capitalization and URL cleaning work in ALL modes (actual bugs)
-    // Icon color fix only applies in dark mode
 
-    // Fix the hardcoded black fill in the dropdown-down icon (ONLY in dark mode)
-    function fixDropdownIcon() {
-        const symbol = document.querySelector('#icon-dropdown-down');
-        if (symbol) {
-            const path = symbol.querySelector('path');
-            if (path) {
-                // Check current theme
-                const isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark';
-
-                if (isDarkMode) {
-                    path.setAttribute('fill', '#f2f2f2');
-                } else {
-                    // Restore original black color in light mode
-                    path.setAttribute('fill', '#000000');
-                }
-            }
-        }
-    }
-
-    // Fix library background (ONLY in dark mode)
-    function fixLibraryBackground() {
-        if (window.location.pathname.includes('/account') && !window.location.pathname.includes('/settings') && !window.location.pathname.includes('/wishlist')) {
-            const container = document.querySelector('.account__products.list--rows');
-            if (container) {
-                const isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark';
-
-                if (isDarkMode) {
-                    container.style.backgroundColor = '#404040';
-                } else {
-                    // Remove our background override in light mode
-                    container.style.backgroundColor = '';
-                }
-            }
-        }
-    }
-
-    // Fix capitalization for "Orders History" and "orders in progress"
+    // ===== ORDERS PAGE: FIX CAPITALIZATION (all modes) =====
     function fixOrdersCapitalization() {
-        const ordersHistoryText = document.querySelector('.orders-header__text');
-        if (ordersHistoryText) {
-            const textNodes = Array.from(ordersHistoryText.childNodes).filter(node =>
-                node.nodeType === Node.TEXT_NODE
-            );
-            textNodes.forEach(node => {
-                if (node.textContent.trim() === 'Orders History') {
-                    node.textContent = node.textContent.replace('Orders History', 'Orders history');
-                }
-            });
-        }
-
         const ordersInProgressLabel = document.querySelector('[hook-test="ordersHistoryInProgress"]');
         if (ordersInProgressLabel) {
             const textNodes = Array.from(ordersInProgressLabel.childNodes).filter(node =>
@@ -541,51 +543,8 @@
         }
     }
 
-    // Run on load
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => {
-            fixDropdownIcon();
-            fixLibraryBackground();
-            fixOrdersCapitalization();
-        });
-    } else {
-        fixDropdownIcon();
-        fixLibraryBackground();
-        fixOrdersCapitalization();
-    }
-
-    setTimeout(() => {
-        fixDropdownIcon();
-        fixLibraryBackground();
-        fixOrdersCapitalization();
-    }, 1000);
-
-    // Watch for theme changes on the html element
-    const themeObserver = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-            if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
-                fixDropdownIcon();
-                fixLibraryBackground();
-            }
-        });
-    });
-
-    // Observe the html element for data-theme attribute changes
-    themeObserver.observe(document.documentElement, {
-        attributes: true,
-        attributeFilter: ['data-theme']
-    });
-
-    // Watch for text content changes (dropdown opening, etc)
-    const textObserver = new MutationObserver(() => {
-        fixOrdersCapitalization();
-    });
-
-    if (document.body) {
-        textObserver.observe(document.body, { childList: true, subtree: true });
-    }
-
-    // Fix the orders page URL hash duplication bug
+    // ===== ORDERS PAGE: URL SEARCH (all modes) =====
+    // Fix URL hash duplication bug that prevents search results from displaying after page reload
     if (window.location.pathname.includes('/settings/orders')) {
         function cleanOrdersURL() {
             const hash = window.location.hash;
@@ -613,5 +572,67 @@
         cleanOrdersURL();
         setTimeout(cleanOrdersURL, 500);
         setTimeout(cleanOrdersURL, 1500);
+    }
+
+    // ===== USER PAGES: FIX BROKEN PROFILE LINKS =====
+    if (window.location.pathname.includes('/u/')) {
+        const usernameMatch = window.location.pathname.match(/\/u\/([^\/]+)/);
+        if (usernameMatch) {
+            const username = usernameMatch[1];
+            const correctProfileUrl = `https://www.gog.com/u/${username}`;
+
+            document.addEventListener('mouseover', function(e) {
+                const link = e.target.closest('a');
+                if (link && link.href === 'https://www.gog.com/u/' && !link.dataset.fixed) {
+                    link.setAttribute('href', correctProfileUrl);
+                    link.href = correctProfileUrl;
+                    link.dataset.fixed = 'true';
+                }
+            }, true);
+        }
+    }
+
+    // ===== INITIALIZATION: RUN FIXES ON LOAD =====
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+            fixDropdownIcon();
+            fixOrdersCapitalization();
+            addCloudSavesLink();
+        });
+    } else {
+        fixDropdownIcon();
+        fixOrdersCapitalization();
+        addCloudSavesLink();
+    }
+
+    setTimeout(() => {
+        fixDropdownIcon();
+        fixOrdersCapitalization();
+        addCloudSavesLink();
+    }, 1000);
+
+    // Watch for theme changes on the html element
+    const themeObserver = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+                fixDropdownIcon();
+            }
+        });
+    });
+
+    // Observe the html element for data-theme attribute changes
+    themeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['data-theme']
+    });
+
+    // Watch for text content changes (dropdown opening, etc)
+    const textObserver = new MutationObserver(() => {
+        fixOrdersCapitalization();
+    });
+
+    if (document.body) {
+        textObserver.observe(document.body, { childList: true, subtree: true });
     }
 })();
