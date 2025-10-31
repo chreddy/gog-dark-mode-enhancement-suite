@@ -306,16 +306,6 @@
             display: none !important;
         }
 
-        /* Fix theme selector layout - make icon not affect layout */
-        .menu-submenu-item__active-theme-icon {
-            position: absolute !important;
-            right: 4px !important;
-            top: 50% !important;
-            transform: translateY(-50%) !important;
-            width: 16px !important;
-            height: 16px !important;
-        }
-
         /* ===== WALLET PAGE FIXES (Dark Mode Only) ===== */
         /* Fix wallet transaction header background */
         html[data-theme="dark"] .wallet-transactions__head,
@@ -431,13 +421,23 @@
         }
     }
 
-    // ===== ACCOUNT MENU: FIX ALIGNMENT =====
+    // ===== ACCOUNT MENU: FIX ALIGNMENT AND THEME SELECTOR =====
     const style = document.createElement('style');
     style.textContent = `
         .menu-submenu-item__label {
             display: inline-block !important;
             vertical-align: middle !important;
             margin-top: -2px !important;
+        }
+
+        /* Fix theme selector layout - make icon not affect layout */
+        .menu-submenu-item__active-theme-icon {
+            position: absolute !important;
+            right: 4px !important;
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+            width: 16px !important;
+            height: 16px !important;
         }
     `;
     document.head.appendChild(style);
