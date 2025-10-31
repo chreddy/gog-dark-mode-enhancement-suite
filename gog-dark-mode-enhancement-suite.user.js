@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GOG Dark Mode Enhancement Suite
 // @namespace    gog-dark-mode-enhancement-suite
-// @version      1.1
+// @version      1.2
 // @description  Enhances GOG.com dark mode with styling fixes, bug fixes, and UI improvements
 // @author       chreddy
 // @match        https://www.gog.com/*
@@ -17,113 +17,52 @@
     console.log('GOG Dark Mode Enhancement Suite: Script loaded');
 
     const cssRules = `
-        /* ===== LIBRARY PAGE FIXES (Dark Mode Only) ===== */
-        /* Fix the container background color ONLY for list view */
-        /* This shows through the 1-pixel gaps between game entries */
-        html[data-theme="dark"] .account__products.list--rows {
-            background-color: #404040 !important;
+        /* ===== LIBRARY PAGE FIXES (BOTH MODES) ===== */
+        /* LIST VIEW: Remove borders and margins, then add consistent separators */
+        .list--rows .product-row,
+        .list--rows .product-row-wrapper {
+            border: none !important;
+            margin: 0 !important;
         }
 
-        html[data-theme="dark"] .account__products--games.list--rows {
-            background-color: #404040 !important;
+        /* LIST VIEW: Add border only between product wrappers */
+        html[data-theme="dark"] .list--rows .product-row-wrapper + .product-row-wrapper,
+        html[data-system-theme="dark"] .list--rows .product-row-wrapper + .product-row-wrapper {
+            border-top: 1px solid #404040 !important;
+        }
+        html:not([data-theme="dark"]):not([data-system-theme="dark"]) .list--rows .product-row-wrapper + .product-row-wrapper {
+            border-top: 1px solid #cfcfcf !important;
         }
 
-        html[data-theme="dark"] .list.account__products.account__products--games.list--rows {
-            background-color: #404040 !important;
-        }
-
+        /* ===== LIBRARY PAGE FIXES (DARK MODE ONLY) ===== */
         /* Fix carousel arrow backgrounds in dark mode */
         html[data-theme="dark"] ._cs-wrapper ._cs-left,
-        html[data-theme="dark"] ._cs-wrapper ._cs-right {
+        html[data-theme="dark"] ._cs-wrapper ._cs-right,
+        html[data-system-theme="dark"] ._cs-wrapper ._cs-left,
+        html[data-system-theme="dark"] ._cs-wrapper ._cs-right {
             background-color: #212121 !important;
-        }
-
-        /* Ensure grid view keeps its original background */
-        /* Grid view should not have the dark background */
-        html[data-theme="dark"] .account__products.list--grid,
-        html[data-theme="dark"] .account__products--games.list--grid,
-        html[data-theme="dark"] .account__products--movies.list--grid {
-            background-color: transparent !important;
-        }
-
-        /* Fix download dropdown arrow color in game/movie details popup */
-        html[data-theme="dark"] .game-details__header-icon,
-        html[data-theme="dark"] .module-header2__element svg,
-        html[data-theme="dark"] .module-header2__element--selected svg {
-            fill: #f2f2f2 !important;
-            color: #f2f2f2 !important;
-        }
-
-        /* Also target the use element and paths inside SVG */
-        html[data-theme="dark"] .game-details__header-icon use,
-        html[data-theme="dark"] .game-details__header-icon path,
-        html[data-theme="dark"] .module-header2__element svg use,
-        html[data-theme="dark"] .module-header2__element svg path {
-            fill: #f2f2f2 !important;
-        }
-
-        /* LIST VIEW ONLY: Remove the original border and any margins/gaps */
-        html[data-theme="dark"] .list--rows .product-row {
-            border-top: none !important;
-            margin-top: 0 !important;
-            margin-bottom: 0 !important;
-        }
-
-        html[data-theme="dark"] .list--rows .product-row-wrapper {
-            margin-top: 0 !important;
-            margin-bottom: 0 !important;
-        }
-
-        /* LIST VIEW ONLY: Add border-top only between product-row-wrapper items */
-        /* Using the + selector means only wrappers that follow another wrapper get a border */
-        html[data-theme="dark"] .list--rows .product-row-wrapper + .product-row-wrapper {
-            border-top: 1px solid #404040 !important;
-            margin-top: 0 !important;
-        }
-
-        /* LIST VIEW ONLY: Ensure no borders on first and last items */
-        html[data-theme="dark"] .list--rows .product-row-wrapper:first-child,
-        html[data-theme="dark"] .list--rows .product-row-wrapper:last-child {
-            border-bottom: none !important;
-        }
-
-        /* ===== LIGHT MODE FIXES ===== */
-        /* Fix separator lines at different zoom levels in light mode too */
-        /* Light mode has the same zoom issue as dark mode had */
-
-        html:not([data-theme="dark"]) .list--rows .product-row {
-            border-top: none !important;
-            margin-top: 0 !important;
-            margin-bottom: 0 !important;
-        }
-
-        html:not([data-theme="dark"]) .list--rows .product-row-wrapper {
-            margin-top: 0 !important;
-            margin-bottom: 0 !important;
-        }
-
-        /* Use the original light mode separator color */
-        html:not([data-theme="dark"]) .list--rows .product-row-wrapper + .product-row-wrapper {
-            border-top: 1px solid #cfcfcf !important;
-            margin-top: 0 !important;
-        }
-
-        html:not([data-theme="dark"]) .list--rows .product-row-wrapper:first-child,
-        html:not([data-theme="dark"]) .list--rows .product-row-wrapper:last-child {
-            border-bottom: none !important;
-        }
-
-        /* Also need to set the light mode background */
-        html:not([data-theme="dark"]) .account__products.list--rows {
-            background-color: #cfcfcf !important;
         }
 
         /* ===== SETTINGS PAGE FIXES (Dark Mode Only) ===== */
         /* Fix dropdown options visibility */
+        html[data-theme="dark"] select,
         html[data-theme="dark"] select option,
+        html[data-theme="dark"] .form__select,
         html[data-theme="dark"] .form__select option,
         html[data-theme="dark"] ._dropdown__item,
-        html[data-theme="dark"] ._dropdown__items ._dropdown__item {
+        html[data-theme="dark"] ._dropdown__items,
+        html[data-theme="dark"] ._dropdown__items ._dropdown__item,
+        html[data-theme="dark"] [class*="dropdown"] [class*="option"],
+        html[data-theme="dark"] [class*="select"] [class*="option"],
+        html[data-system-theme="dark"] select,
+        html[data-system-theme="dark"] select option,
+        html[data-system-theme="dark"] .form__select,
+        html[data-system-theme="dark"] .form__select option,
+        html[data-system-theme="dark"] ._dropdown__item,
+        html[data-system-theme="dark"] ._dropdown__items,
+        html[data-system-theme="dark"] ._dropdown__items ._dropdown__item,
+        html[data-system-theme="dark"] [class*="dropdown"] [class*="option"],
+        html[data-system-theme="dark"] [class*="select"] [class*="option"] {
             background-color: #3d3d3d !important;
             color: #f2f2f2 !important;
         }
@@ -133,49 +72,49 @@
         html[data-theme="dark"] .wishlist-options__dropdown ._dropdown__item,
         html[data-theme="dark"] .wishlist-options__dropdown ._dropdown__items ._dropdown__item,
         html[data-theme="dark"] .wishlist-options__current,
-        html[data-theme="dark"] span.wishlist-options__current {
+        html[data-theme="dark"] span.wishlist-options__current,
+        html[data-system-theme="dark"] .wishlist-options__dropdown ._dropdown__item,
+        html[data-system-theme="dark"] .wishlist-options__dropdown ._dropdown__items ._dropdown__item,
+        html[data-system-theme="dark"] .wishlist-options__current,
+        html[data-system-theme="dark"] span.wishlist-options__current {
+
             background-color: transparent !important;
             color: inherit !important;
         }
 
         /* More specific override for wishlist current text */
         html[data-theme="dark"] .wishlist-options__dropdown .wishlist-options__current,
-        html[data-theme="dark"] ._dropdown.wishlist-options__dropdown .wishlist-options__current {
+        html[data-theme="dark"] ._dropdown.wishlist-options__dropdown .wishlist-options__current,
+        html[data-system-theme="dark"] .wishlist-options__dropdown .wishlist-options__current,
+        html[data-system-theme="dark"] ._dropdown.wishlist-options__dropdown .wishlist-options__current {
             background-color: transparent !important;
         }
 
         /* Hover state */
         html[data-theme="dark"] select option:hover,
         html[data-theme="dark"] .form__select option:hover,
-        html[data-theme="dark"] ._dropdown__item:hover {
+        html[data-theme="dark"] ._dropdown__item:hover,
+        html[data-system-theme="dark"] select option:hover,
+        html[data-system-theme="dark"] .form__select option:hover,
+        html[data-system-theme="dark"] ._dropdown__item:hover {
             background-color: #404040 !important;
             color: #ffffff !important;
         }
 
-        /* EXCEPT: Don't apply hover to wishlist dropdown */
-        html[data-theme="dark"] .wishlist-options__dropdown ._dropdown__item:hover {
+        html[data-theme="dark"] [class*="dropdown"] [class*="option"]:hover,
+        html[data-theme="dark"] [class*="select"] [class*="option"]:hover,
+        html[data-system-theme="dark"] [class*="dropdown"] [class*="option"]:hover,
+        html[data-system-theme="dark"] [class*="select"] [class*="option"]:hover {
+            background-color: #404040 !important;
+        }
+
+        /* EXCEPT: Don't apply to wishlist options */
+        html[data-theme="dark"] .wishlist-options [class*="option"]:hover,
+        html[data-system-theme="dark"] .wishlist-options [class*="option"]:hover,
+        html[data-theme="dark"] [class*="wishlist"] [class*="option"]:hover,
+        html[data-system-theme="dark"] [class*="wishlist"] [class*="option"]:hover {
             background-color: transparent !important;
             color: inherit !important;
-        }
-
-        /* Dropdown container */
-        html[data-theme="dark"] ._dropdown__items,
-        html[data-theme="dark"] .form__select,
-        html[data-theme="dark"] select {
-            background-color: #3d3d3d !important;
-            color: #f2f2f2 !important;
-        }
-
-        /* Custom dropdown elements */
-        html[data-theme="dark"] [class*="dropdown"] [class*="option"],
-        html[data-theme="dark"] [class*="select"] [class*="option"] {
-            background-color: #3d3d3d !important;
-            color: #f2f2f2 !important;
-        }
-
-        html[data-theme="dark"] [class*="dropdown"] [class*="option"]:hover,
-        html[data-theme="dark"] [class*="select"] [class*="option"]:hover {
-            background-color: #404040 !important;
         }
 
         /* Fix input fields - make text visible */
@@ -183,7 +122,12 @@
         html[data-theme="dark"] input[type="email"],
         html[data-theme="dark"] input[type="password"],
         html[data-theme="dark"] textarea,
-        html[data-theme="dark"] .tag-input-wrapper__input {
+        html[data-theme="dark"] .tag-input-wrapper__input,
+        html[data-system-theme="dark"] input[type="text"],
+        html[data-system-theme="dark"] input[type="email"],
+        html[data-system-theme="dark"] input[type="password"],
+        html[data-system-theme="dark"] textarea,
+        html[data-system-theme="dark"] .tag-input-wrapper__input {
             background-color: #3d3d3d !important;
             color: #f2f2f2 !important;
         }
@@ -194,7 +138,12 @@
         html[data-theme="dark"] ._search__input,
         html[data-theme="dark"] ._search ._search__input,
         html[data-theme="dark"] .orders-header__search input,
-        html[data-theme="dark"] .orders-header__search-input {
+        html[data-theme="dark"] .orders-header__search-input,
+        html[data-system-theme="dark"] ._search input,
+        html[data-system-theme="dark"] ._search__input,
+        html[data-system-theme="dark"] ._search ._search__input,
+        html[data-system-theme="dark"] .orders-header__search input,
+        html[data-system-theme="dark"] .orders-header__search-input {
             background-color: transparent !important;
             background: transparent !important;
             border: 0 !important;
@@ -226,50 +175,68 @@
         html[data-theme="dark"] input[type="text"]:not(._search__input):not(._search input),
         html[data-theme="dark"] input[type="search"],
         html[data-theme="dark"] .form__input,
-        html[data-theme="dark"] input.form__input {
+        html[data-theme="dark"] input.form__input,
+        html[data-system-theme="dark"] input[type="text"]:not(._search__input):not(._search input),
+        html[data-system-theme="dark"] input[type="search"],
+        html[data-system-theme="dark"] .form__input,
+        html[data-system-theme="dark"] input.form__input {
             border-radius: 3px !important;
         }
 
         /* Keep placeholder text visible but slightly dimmed */
         html[data-theme="dark"] input::placeholder,
-        html[data-theme="dark"] textarea::placeholder {
+        html[data-theme="dark"] textarea::placeholder,
+        html[data-system-theme="dark"] input::placeholder,
+        html[data-system-theme="dark"] textarea::placeholder {
             color: #888888 !important;
             opacity: 1 !important;
         }
 
         /* Input focus state */
         html[data-theme="dark"] input:focus,
-        html[data-theme="dark"] textarea:focus {
+        html[data-theme="dark"] textarea:focus,
+        html[data-system-theme="dark"] input:focus,
+        html[data-system-theme="dark"] textarea:focus {
             background-color: #333333 !important;
             color: #ffffff !important;
         }
 
         /* Fix tag input wrapper and inside options (cancel button area) */
         html[data-theme="dark"] .tag-input-wrapper,
-        html[data-theme="dark"] .tag-input__inside-options {
+        html[data-theme="dark"] .tag-input__inside-options,
+        html[data-system-theme="dark"] .tag-input-wrapper,
+        html[data-system-theme="dark"] .tag-input__inside-options {
             background-color: #3d3d3d !important;
         }
 
-        html[data-theme="dark"] .tag-item .tag-input__inside-options {
+        html[data-theme="dark"] .tag-item .tag-input__inside-options
+        html[data-system-theme="dark"] .tag-item .tag-input__inside-options {
             background-color: transparent !important;
         }
 
         /* Cancel button styling */
         html[data-theme="dark"] .tag-input__option,
-        html[data-theme="dark"] a.tag-input__option {
+        html[data-theme="dark"] a.tag-input__option,
+        html[data-system-theme="dark"] .tag-input__option,
+        html[data-system-theme="dark"] a.tag-input__option {
             background-color: transparent !important;
             color: #f2f2f2 !important;
         }
 
         html[data-theme="dark"] .tag-input__option:hover,
-        html[data-theme="dark"] a.tag-input__option:hover {
+        html[data-theme="dark"] a.tag-input__option:hover,
+        html[data-system-theme="dark"] .tag-input__option:hover,
+        html[data-system-theme="dark"] a.tag-input__option:hover {
             color: #ffffff !important;
         }
 
         /* Fix checkboxes and radio buttons in dark mode */
         html[data-theme="dark"] .checkbox,
         html[data-theme="dark"] .radio,
-        html[data-theme="dark"] .dropdown-input.checkbox {
+        html[data-theme="dark"] .dropdown-input.checkbox,
+        html[data-system-theme="dark"] .checkbox,
+        html[data-system-theme="dark"] .radio,
+        html[data-system-theme="dark"] .dropdown-input.checkbox {
             background: #3d3d3d !important;
             border: 1px solid #6a6a6a !important;
             box-shadow: inset 0 1px 3px rgba(0,0,0,.3) !important;
@@ -277,7 +244,9 @@
 
         /* Make checkmark visible when checked */
         html[data-theme="dark"] .checkbox::before,
-        html[data-theme="dark"] .dropdown-input.checkbox::before {
+        html[data-theme="dark"] .dropdown-input.checkbox::before,
+        html[data-system-theme="dark"] .checkbox::before,
+        html[data-system-theme="dark"] .dropdown-input.checkbox::before {
             color: #f2f2f2 !important;
         }
 
@@ -285,7 +254,9 @@
         /* The spinner uses box-shadow to create the visual, not borders */
         /* Using all 40 shadow positions to match the smooth appearance of light mode */
         html[data-theme="dark"] .list__spinner-in,
-        html[data-theme="dark"] .account__list-spinner-in {
+        html[data-theme="dark"] .account__list-spinner-in,
+        html[data-system-theme="dark"] .list__spinner-in,
+        html[data-system-theme="dark"] .account__list-spinner-in {
             color: #f2f2f2 !important;
             /* Override the black box-shadows with bright ones - all 40 positions */
             box-shadow:
@@ -335,35 +306,58 @@
             display: none !important;
         }
 
-        /* ===== WALLET PAGE FIXES (Dark Mode Only) ===== */
-        /* Fix wallet transaction header background */
-        html[data-theme="dark"] .wallet-transactions__head {
-            background-color: #585858 !important;
+        /* Fix theme selector layout - make icon not affect layout */
+        .menu-submenu-item__active-theme-icon {
+            position: absolute !important;
+            right: 4px !important;
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+            width: 16px !important;
+            height: 16px !important;
         }
 
-        /* Ensure text is visible */
-        html[data-theme="dark"] .wallet-transactions__header {
-            color: #f2f2f2 !important;
+        /* ===== WALLET PAGE FIXES (Dark Mode Only) ===== */
+        /* Fix wallet transaction header background */
+        html[data-theme="dark"] .wallet-transactions__head,
+        html[data-system-theme="dark"] .wallet-transactions__head {
+            background-color: #303030 !important;
+        }
+
+        /* Remove default borders and margins */
+        html[data-theme="dark"] .wallet-transactions__item,
+        html[data-system-theme="dark"] .wallet-transactions__item {
+            border: none !important;
+            margin: 0 !important;
+        }
+
+        /* Add border only between transaction items */
+        html[data-theme="dark"] .wallet-transactions__item + .wallet-transactions__item,
+        html[data-system-theme="dark"] .wallet-transactions__item + .wallet-transactions__item {
+            border-top: 1px solid #404040 !important;
         }
 
         /* ===== REDEEM PAGE FIXES (Dark Mode Only) ===== */
         /* Fixes checkbox background colors as well as the reCAPTCHA text color */
         html[data-theme="dark"] .select-products-text,
-        html[data-theme="dark"] .captchaText .externalLink {
+        html[data-theme="dark"] .captchaText .externalLink,
+        html[data-system-theme="dark"] .select-products-text,
+        html[data-system-theme="dark"] .captchaText .externalLink {
             color: #f2f2f2 !important;
         }
 
-        html[data-theme="dark"] .captchaText {
+        html[data-theme="dark"] .captchaText,
+        html[data-system-theme="dark"] .captchaText {
             color: #a0a0a0 !important;
         }
 
         html[data-theme="dark"] .select-checkbox,
-        html[data-theme="dark"] .select-products-checkbox {
-            background-color: #f2f2f2 !important;
-        }
-
         html[data-theme="dark"] .select-checkbox:focus,
-        html[data-theme="dark"] .select-products-checkbox:focus {
+        html[data-theme="dark"] .select-products-checkbox,
+        html[data-theme="dark"] .select-products-checkbox:focus,
+        html[data-system-theme="dark"] .select-checkbox,
+        html[data-system-theme="dark"] .select-checkbox:focus,
+        html[data-system-theme="dark"] .select-products-checkbox,
+        html[data-system-theme="dark"] .select-products-checkbox:focus {
             background-color: #f2f2f2 !important;
         }
     `;
@@ -387,6 +381,35 @@
         }
     }
 
+    // ===== SYSTEM THEME DETECTION =====
+    // Add a class to help CSS target system theme preference
+    function updateSystemTheme() {
+        const html = document.documentElement;
+        const hasThemeAttr = html.hasAttribute('data-theme');
+
+        if (!hasThemeAttr) {
+            // System mode is active - detect preference
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            html.setAttribute('data-system-theme', prefersDark ? 'dark' : 'light');
+        } else {
+            // Manual theme selected - remove system theme attribute
+            html.removeAttribute('data-system-theme');
+        }
+    }
+
+    // Run on load
+    updateSystemTheme();
+
+    // Watch for theme changes
+    const systemThemeObserver = new MutationObserver(updateSystemTheme);
+    systemThemeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['data-theme']
+    });
+
+    // Listen for system theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateSystemTheme);
+
     // ===== ACCOUNT MENU: ADD CLOUD SAVES LINK =====
     function addCloudSavesLink() {
         if (document.querySelector('a[href="/account/cloud-saves"]')) {
@@ -409,15 +432,15 @@
     }
 
     // ===== ACCOUNT MENU: FIX ALIGNMENT =====
-	const style = document.createElement('style');
-	style.textContent = `
-		.menu-submenu-item__label {
-			display: inline-block !important;
-			vertical-align: middle !important;
-			margin-top: -2px !important;
-		}
-	`;
-	document.head.appendChild(style);
+    const style = document.createElement('style');
+    style.textContent = `
+        .menu-submenu-item__label {
+            display: inline-block !important;
+            vertical-align: middle !important;
+            margin-top: -2px !important;
+        }
+    `;
+    document.head.appendChild(style);
 
     // ===== ACCOUNT MENU: FIX MENU COLORS (select pages only) =====
     if (window.location.pathname.includes('/account') ||
@@ -425,20 +448,22 @@
         (window.location.pathname.includes('/u/') && !window.location.pathname.match(/\/u\/[^\/]+\/?$/))) {
         const style = document.createElement('style');
         style.textContent = `
-            html[data-theme="dark"] nav.menu {
+            html[data-theme="dark"] nav.menu,
+            html[data-system-theme="dark"] nav.menu {
                 --c-ui-primary: #303030 !important;
                 --c-background: #1a1a1a !important;
             }
 
-            html[data-theme="dark"] .menu-header.menu-account__user {
+            html[data-theme="dark"] .menu-header.menu-account__user,
+            html[data-system-theme="dark"] .menu-header.menu-account__user {
                 background-color: #212121 !important;
             }
         `;
         document.head.appendChild(style);
     }
 
-    // ===== LIBRARY PAGE: DROPDOWN ICON FIX =====
-    // Fix the hardcoded black fill in the dropdown-down icon
+    // ===== LIBRARY PAGE: OFFLINE INSTALLER ICON FIX =====
+    // Fix the hardcoded black fill in the dropdown icon
     function fixDropdownIcon() {
         const symbol = document.querySelector('#icon-dropdown-down');
         if (symbol) {
@@ -461,16 +486,46 @@
     if (window.location.pathname.includes('/u/')) {
         const style = document.createElement('style');
         style.textContent = `
-            html[data-theme="dark"] .user__data.user__data--with-orion-project-link {
+            html[data-theme="dark"] .user__data.user__data--with-orion-project-link,
+            html[data-system-theme="dark"] .user__data.user__data--with-orion-project-link {
                 border-color: var(--c-ui-tertiary) !important;
                 background: var(--c-ui-primary) !important;
             }
-            html[data-theme="dark"] .user__item.user__item:not(.user__item--header) {
+            html[data-theme="dark"] .user__item.user__item:not(.user__item--header),
+            html[data-system-theme="dark"] .user__item.user__item:not(.user__item--header) {
                 border-top: 1px solid #404040;
-				background: var(--c-ui-primary) !important;
+                background: var(--c-ui-primary) !important;
             }
         `;
         document.head.appendChild(style);
+    }
+
+    // ===== WISHLIST PAGE: FIX SAVE STATUS BACKGROUND =====
+    if (window.location.pathname.includes('/wishlist')) {
+        function fixWishlistBackground() {
+            const saveStatuses = document.querySelector('.wishlist-options__save-statuses');
+            const saved = document.querySelector('.wishlist-options__saved');
+
+            if (saveStatuses) {
+                saveStatuses.style.setProperty('background-color', 'transparent', 'important');
+            }
+            if (saved) {
+                saved.style.setProperty('background-color', 'transparent', 'important');
+            }
+        }
+
+        // Run immediately and after delay
+        fixWishlistBackground();
+
+        // Watch for the dropdown being interacted with
+        const observer = new MutationObserver(fixWishlistBackground);
+        if (document.body) {
+            observer.observe(document.body, {
+                attributes: true,
+                attributeFilter: ['class'],
+                subtree: true
+            });
+        }
     }
 
     // ===== WISHLIST PAGE: UPGRADE IMAGES TO HIGHER RESOLUTION =====
@@ -527,7 +582,6 @@
     }
 
     // ===== BUG FIXES =====
-
     // ===== ORDERS PAGE: FIX CAPITALIZATION (all modes) =====
     function fixOrdersCapitalization() {
         const ordersInProgressLabel = document.querySelector('[hook-test="ordersHistoryInProgress"]');
@@ -593,7 +647,6 @@
     }
 
     // ===== INITIALIZATION: RUN FIXES ON LOAD =====
-
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => {
             fixDropdownIcon();
