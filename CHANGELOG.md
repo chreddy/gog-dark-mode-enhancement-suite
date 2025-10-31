@@ -3,7 +3,7 @@
 All notable changes to the GOG Dark Mode Enhancement Suite will be documented in this file.
 
 ## Version 1.2 (2025-10-31)
-- System theme support: Dark/light mode fixes now work when "System" theme is selected
+- System theme support: Dark mode fixes now work when "System mode" is selected
 - Account menu: Fixed theme selector layout when switching modes
 - Wishlist page: Fixed background colors on dropdown
 - Wallet page: Fixed transaction separator lines in dark mode
