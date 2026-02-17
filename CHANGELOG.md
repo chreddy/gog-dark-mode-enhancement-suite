@@ -2,6 +2,16 @@
 
 All notable changes to the GOG Dark Mode Enhancement Suite will be documented in this file.
 
+## Version 1.3 (2026-02-17)
+Since version 1.2, GOG made some changes to the dark mode. This means that some stuff broke, while other code is no longer needed. Changes:
+- Friends page: Improved the "Invite new friend" modal
+- Library page: Fixed background color and hover for filter menus, as well as the sort and view menus
+- Orders page: Fixed URL hash duplication bug once again, as the pattern changed from !%2F to %2F%2F
+- Wishlist page: Fixed colors to make it appear more in line with the collection
+- Wishlist page: Public wishlists now looks similar UI-wise to the account-specific wishlist
+- Settings page: Fixed separator lines for navigation items, settings items etc., as well as hover color on the menu
+- Code optimization: Consolidated and removed redundant CSS and JavaScript, which was mostly due to GOG changing things at their end
+
 ## Version 1.2 (2025-10-31)
 - System theme support: Dark mode fixes now work when "System mode" is selected
 - Account menu: Fixed theme selector layout when switching modes
