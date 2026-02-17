@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GOG Dark Mode Enhancement Suite
 // @namespace    gog-dark-mode-enhancement-suite
-// @version      1.2
+// @version      1.3
 // @description  Enhances GOG.com dark mode with styling fixes, bug fixes, and UI improvements
 // @author       chreddy
 // @match        https://www.gog.com/*
@@ -34,186 +34,143 @@
             border-top: 1px solid #cfcfcf !important;
         }
 
-        /* ===== LIBRARY PAGE FIXES (DARK MODE ONLY) ===== */
-        /* Fix carousel arrow backgrounds in dark mode */
-        html[data-theme="dark"] ._cs-wrapper ._cs-left,
-        html[data-theme="dark"] ._cs-wrapper ._cs-right,
-        html[data-system-theme="dark"] ._cs-wrapper ._cs-left,
-        html[data-system-theme="dark"] ._cs-wrapper ._cs-right {
-            background-color: #212121 !important;
+        /* Fix border color on filter section */
+        html[data-theme="dark"] .filters__section ~ .filters__section > .filter,
+        html[data-system-theme="dark"] .filters__section ~ .filters__section > .filter {
+            border-color: #404040 !important;
         }
 
-        /* ===== SETTINGS PAGE FIXES (Dark Mode Only) ===== */
-        /* Fix dropdown options visibility */
+        html[data-theme="dark"] .filter__items._dropdown__items.js-not-toggle,
+        html[data-theme="dark"] .filter__items._dropdown__items.js-not-toggle ._dropdown__item,
+        html[data-system-theme="dark"] .filter__items._dropdown__items.js-not-toggle,
+        html[data-system-theme="dark"] .filter__items._dropdown__items.js-not-toggle ._dropdown__item {
+            background-color: #303030 !important;
+        }
+
+        html[data-theme="dark"] .filter__items._dropdown__items.js-not-toggle ._dropdown__item:hover,
+        html[data-system-theme="dark"] .filter__items._dropdown__items.js-not-toggle ._dropdown__item:hover {
+            background-color: #3d3d3d !important;
+        }
+
+        html[data-theme="dark"] .filter__items._dropdown__items.js-not-toggle .pagin,
+        html[data-theme="dark"] .filter__items._dropdown__items.js-not-toggle ._fake_dropdown__item,
+        html[data-system-theme="dark"] .filter__items._dropdown__items.js-not-toggle .pagin,
+        html[data-system-theme="dark"] .filter__items._dropdown__items.js-not-toggle ._fake_dropdown__item {
+            background-color: #303030 !important;
+        }
+
+        /* Fixes background color for "Sort by" and "View as" menus */
+        html[data-theme="dark"] .module-header-dd__items,
+        html[data-theme="dark"] .module-header-dd__items ._dropdown__item,
+        html[data-system-theme="dark"] .module-header-dd__items,
+        html[data-system-theme="dark"] .module-header-dd__items ._dropdown__item,
+        html[data-theme="dark"] .header-dropdown__items._dropdown__items > ._dropdown__item {
+            background-color: #303030 !important;
+        }
+
+        html[data-theme="dark"] .module-header-dd__items ._dropdown__item:hover,
+        html[data-system-theme="dark"] .module-header-dd__items ._dropdown__item:hover,
+        html[data-theme="dark"] .header-dropdown__items._dropdown__items > ._dropdown__item:hover {
+            background-color: #3d3d3d !important;
+        }
+
+
+        /* ===== GENERAL SETTINGS PAGE FIXES (Dark Mode Only) ===== */
+        /* Fix dropdowns */
         html[data-theme="dark"] select,
         html[data-theme="dark"] select option,
         html[data-theme="dark"] .form__select,
         html[data-theme="dark"] .form__select option,
-        html[data-theme="dark"] ._dropdown__item,
-        html[data-theme="dark"] ._dropdown__items,
-        html[data-theme="dark"] ._dropdown__items ._dropdown__item,
-        html[data-theme="dark"] [class*="dropdown"] [class*="option"],
-        html[data-theme="dark"] [class*="select"] [class*="option"],
         html[data-system-theme="dark"] select,
         html[data-system-theme="dark"] select option,
         html[data-system-theme="dark"] .form__select,
-        html[data-system-theme="dark"] .form__select option,
-        html[data-system-theme="dark"] ._dropdown__item,
-        html[data-system-theme="dark"] ._dropdown__items,
-        html[data-system-theme="dark"] ._dropdown__items ._dropdown__item,
-        html[data-system-theme="dark"] [class*="dropdown"] [class*="option"],
-        html[data-system-theme="dark"] [class*="select"] [class*="option"] {
+        html[data-system-theme="dark"] .form__select option {
             background-color: #3d3d3d !important;
             color: #f2f2f2 !important;
+            padding-left: 8px !important;
         }
 
-        /* EXCEPT: Don't apply to wishlist dropdown and current text */
-        /* The wishlist sharing dropdown should keep its original styling */
-        html[data-theme="dark"] .wishlist-options__dropdown ._dropdown__item,
-        html[data-theme="dark"] .wishlist-options__dropdown ._dropdown__items ._dropdown__item,
-        html[data-theme="dark"] .wishlist-options__current,
-        html[data-theme="dark"] span.wishlist-options__current,
-        html[data-system-theme="dark"] .wishlist-options__dropdown ._dropdown__item,
-        html[data-system-theme="dark"] .wishlist-options__dropdown ._dropdown__items ._dropdown__item,
-        html[data-system-theme="dark"] .wishlist-options__current,
-        html[data-system-theme="dark"] span.wishlist-options__current {
-
-            background-color: transparent !important;
-            color: inherit !important;
-        }
-
-        /* More specific override for wishlist current text */
-        html[data-theme="dark"] .wishlist-options__dropdown .wishlist-options__current,
-        html[data-theme="dark"] ._dropdown.wishlist-options__dropdown .wishlist-options__current,
-        html[data-system-theme="dark"] .wishlist-options__dropdown .wishlist-options__current,
-        html[data-system-theme="dark"] ._dropdown.wishlist-options__dropdown .wishlist-options__current {
-            background-color: transparent !important;
-        }
-
-        /* Hover state */
-        html[data-theme="dark"] select option:hover,
-        html[data-theme="dark"] .form__select option:hover,
-        html[data-theme="dark"] ._dropdown__item:hover,
-        html[data-system-theme="dark"] select option:hover,
-        html[data-system-theme="dark"] .form__select option:hover,
-        html[data-system-theme="dark"] ._dropdown__item:hover {
-            background-color: #404040 !important;
-            color: #ffffff !important;
-        }
-
-        html[data-theme="dark"] [class*="dropdown"] [class*="option"]:hover,
-        html[data-theme="dark"] [class*="select"] [class*="option"]:hover,
-        html[data-system-theme="dark"] [class*="dropdown"] [class*="option"]:hover,
-        html[data-system-theme="dark"] [class*="select"] [class*="option"]:hover {
-            background-color: #404040 !important;
-        }
-
-        /* EXCEPT: Don't apply to wishlist options */
-        html[data-theme="dark"] .wishlist-options [class*="option"]:hover,
-        html[data-system-theme="dark"] .wishlist-options [class*="option"]:hover,
-        html[data-theme="dark"] [class*="wishlist"] [class*="option"]:hover,
-        html[data-system-theme="dark"] [class*="wishlist"] [class*="option"]:hover {
-            background-color: transparent !important;
-            color: inherit !important;
-        }
-
-        /* Fix input fields - make text visible */
-        html[data-theme="dark"] input[type="text"],
-        html[data-theme="dark"] input[type="email"],
-        html[data-theme="dark"] input[type="password"],
-        html[data-theme="dark"] textarea,
-        html[data-theme="dark"] .tag-input-wrapper__input,
-        html[data-system-theme="dark"] input[type="text"],
-        html[data-system-theme="dark"] input[type="email"],
-        html[data-system-theme="dark"] input[type="password"],
-        html[data-system-theme="dark"] textarea,
-        html[data-system-theme="dark"] .tag-input-wrapper__input {
+        html[data-theme="dark"] .input--big,
+        html[data-system-theme="dark"] .input--big {
             background-color: #3d3d3d !important;
-            color: #f2f2f2 !important;
         }
 
-        /* IMPORTANT: Completely exclude search inputs from all overrides */
-        /* Search inputs need to keep their transparent background and inherit styles from parent */
-        html[data-theme="dark"] ._search input,
-        html[data-theme="dark"] ._search__input,
-        html[data-theme="dark"] ._search ._search__input,
-        html[data-theme="dark"] .orders-header__search input,
-        html[data-theme="dark"] .orders-header__search-input,
-        html[data-system-theme="dark"] ._search input,
-        html[data-system-theme="dark"] ._search__input,
-        html[data-system-theme="dark"] ._search ._search__input,
-        html[data-system-theme="dark"] .orders-header__search input,
-        html[data-system-theme="dark"] .orders-header__search-input {
-            background-color: transparent !important;
+        /* Fix checkboxes and radio buttons in dark mode */
+        html[data-theme="dark"] .checkbox,
+        html[data-theme="dark"] .radio,
+        html[data-theme="dark"] .dropdown-input.checkbox,
+        html[data-system-theme="dark"] .checkbox,
+        html[data-system-theme="dark"] .radio,
+        html[data-system-theme="dark"] .dropdown-input.checkbox {
+            background: #3d3d3d !important;
+            border: 1px solid #6a6a6a !important;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,.3) !important;
+        }
+
+        /* Search inputs need to keep their transparent background */
+        ._search__input {
             background: transparent !important;
-            border: 0 !important;
-            border-radius: inherit !important;
-            line-height: inherit !important;
-            padding: 0 1.8em !important;
-            color: inherit !important;
         }
 
-        /* Orders header alignment fix - applies in ALL modes (this is a bug fix, not styling) */
-        /* Disable flexbox and use absolute positioning for proper alignment */
-        .orders-log-module-header {
-            display: block !important;
-            position: relative !important;
+
+        /* ===== SETTINGS NAV MENU ===== */
+        /* Separator lines (dark mode) ===== */
+        html[data-theme="dark"] .settings__nav-item,
+        html[data-system-theme="dark"] .settings__nav-item,
+        html[data-theme="dark"] .settings__nav-link,
+        html[data-system-theme="dark"] .settings__nav-link {
+            border-color: #404040 !important;
         }
 
-        /* Position search field absolutely to the right */
-        .orders-header__search {
-            position: absolute !important;
-            right: 0 !important;
+        /* Hover color */
+        html[data-theme="dark"] .settings__nav-link:hover,
+        html[data-system-theme="dark"] .settings__nav-link:hover {
+            background-color: #404040 !important;
         }
 
-        /* Keep "Orders History" on the left (normal flow) */
-        .orders-header__text {
-            display: inline-block !important;
+        /* ===== SETTINGS PAGES: FIX SEPARATOR LINES (Dark Mode Only) ===== */
+        html[data-theme="dark"] .settings-item__section,
+        html[data-system-theme="dark"] .settings-item__section {
+            border-bottom-color: #404040 !important;
         }
 
-        /* Only style non-search text inputs */
-        html[data-theme="dark"] input[type="text"]:not(._search__input):not(._search input),
-        html[data-theme="dark"] input[type="search"],
-        html[data-theme="dark"] .form__input,
-        html[data-theme="dark"] input.form__input,
-        html[data-system-theme="dark"] input[type="text"]:not(._search__input):not(._search input),
-        html[data-system-theme="dark"] input[type="search"],
-        html[data-system-theme="dark"] .form__input,
-        html[data-system-theme="dark"] input.form__input {
-            border-radius: 3px !important;
+        html[data-theme="dark"] .settings-list,
+        html[data-system-theme="dark"] .settings-list {
+            border-color: #404040 !important;
         }
 
-        /* Keep placeholder text visible but slightly dimmed */
-        html[data-theme="dark"] input::placeholder,
-        html[data-theme="dark"] textarea::placeholder,
-        html[data-system-theme="dark"] input::placeholder,
-        html[data-system-theme="dark"] textarea::placeholder {
-            color: #888888 !important;
-            opacity: 1 !important;
+        html[data-theme="dark"] .subscriptions-list,
+        html[data-system-theme="dark"] .subscriptions-list {
+            border-top-color: #404040 !important;
         }
 
-        /* Input focus state */
-        html[data-theme="dark"] input:focus,
-        html[data-theme="dark"] textarea:focus,
-        html[data-system-theme="dark"] input:focus,
-        html[data-system-theme="dark"] textarea:focus {
-            background-color: #333333 !important;
-            color: #ffffff !important;
+        html[data-theme="dark"] .subscriptions-list__item,
+        html[data-system-theme="dark"] .subscriptions-list__item {
+            border-bottom-color: #404040 !important;
         }
 
-        /* Fix tag input wrapper and inside options (cancel button area) */
-        html[data-theme="dark"] .tag-input-wrapper,
-        html[data-theme="dark"] .tag-input__inside-options,
-        html[data-system-theme="dark"] .tag-input-wrapper,
-        html[data-system-theme="dark"] .tag-input__inside-options {
-            background-color: #3d3d3d !important;
+        /* Remove double borders between subscription sections (all modes) */
+        .subscriptions-list + .subscriptions-list {
+            border-top: none !important;
         }
 
-        html[data-theme="dark"] .tag-item .tag-input__inside-options
-        html[data-system-theme="dark"] .tag-item .tag-input__inside-options {
-            background-color: transparent !important;
+
+        /* ===== ORDERS PAGE FIXES ===== */
+        /* Fix the container to remove bright horizontal line - applies to BOTH modes */
+        .list__spinner,
+        .account__list-spinner,
+        .list__message {
+            border-top: none !important;
+            border-bottom: none !important;
         }
 
+        /* Hide search field spinner - applies to BOTH modes */
+        ._search__spinner {
+            display: none !important;
+        }
+
+
+        /* ===== TAGS PAGE ===== */
         /* Cancel button styling */
         html[data-theme="dark"] .tag-input__option,
         html[data-theme="dark"] a.tag-input__option,
@@ -230,89 +187,13 @@
             color: #ffffff !important;
         }
 
-        /* Fix checkboxes and radio buttons in dark mode */
-        html[data-theme="dark"] .checkbox,
-        html[data-theme="dark"] .radio,
-        html[data-theme="dark"] .dropdown-input.checkbox,
-        html[data-system-theme="dark"] .checkbox,
-        html[data-system-theme="dark"] .radio,
-        html[data-system-theme="dark"] .dropdown-input.checkbox {
-            background: #3d3d3d !important;
-            border: 1px solid #6a6a6a !important;
-            box-shadow: inset 0 1px 3px rgba(0,0,0,.3) !important;
+        html[data-theme="dark"] .tag-input__inside-options,
+        html[data-system-theme="dark"] .tag-input__inside-options {
+            background-color: transparent !important;
         }
 
-        /* Make checkmark visible when checked */
-        html[data-theme="dark"] .checkbox::before,
-        html[data-theme="dark"] .dropdown-input.checkbox::before,
-        html[data-system-theme="dark"] .checkbox::before,
-        html[data-system-theme="dark"] .dropdown-input.checkbox::before {
-            color: #f2f2f2 !important;
-        }
-
-        /* Fix loading spinner visibility on orders page */
-        /* The spinner uses box-shadow to create the visual, not borders */
-        /* Using all 40 shadow positions to match the smooth appearance of light mode */
-        html[data-theme="dark"] .list__spinner-in,
-        html[data-theme="dark"] .account__list-spinner-in,
-        html[data-system-theme="dark"] .list__spinner-in,
-        html[data-system-theme="dark"] .account__list-spinner-in {
-            color: #f2f2f2 !important;
-            /* Override the black box-shadows with bright ones - all 40 positions */
-            box-shadow:
-                rgb(242, 242, 242) 15.2px 0px 0px 0px,
-                rgba(242, 242, 242, 0.97) 15.12px -1.584px 0px 0px,
-                rgba(242, 242, 242, 0.933) 14.864px -3.168px 0px 0px,
-                rgba(242, 242, 242, 0.9) 14.464px -4.704px 0px 0px,
-                rgba(242, 242, 242, 0.867) 13.888px -6.176px 0px 0px,
-                rgba(242, 242, 242, 0.83) 13.168px -7.6px 0px 0px,
-                rgba(242, 242, 242, 0.8) 12.304px -8.928px 0px 0px,
-                rgba(242, 242, 242, 0.77) 11.296px -10.176px 0px 0px,
-                rgba(242, 242, 242, 0.733) 10.176px -11.296px 0px 0px,
-                rgba(242, 242, 242, 0.7) 8.928px -12.304px 0px 0px,
-                rgba(242, 242, 242, 0.667) 7.6px -13.168px 0px 0px,
-                rgba(242, 242, 242, 0.63) 6.176px -13.888px 0px 0px,
-                rgba(242, 242, 242, 0.6) 4.704px -14.464px 0px 0px,
-                rgba(242, 242, 242, 0.57) 3.168px -14.864px 0px 0px,
-                rgba(242, 242, 242, 0.533) 1.584px -15.12px 0px 0px,
-                rgba(242, 242, 242, 0.5) 0px -15.2px 0px 0px,
-                rgba(242, 242, 242, 0.467) -1.584px -15.12px 0px 0px,
-                rgba(242, 242, 242, 0.43) -3.168px -14.864px 0px 0px,
-                rgba(242, 242, 242, 0.4) -4.704px -14.464px 0px 0px,
-                rgba(242, 242, 242, 0.37) -6.176px -13.888px 0px 0px,
-                rgba(242, 242, 242, 0.333) -7.6px -13.168px 0px 0px,
-                rgba(242, 242, 242, 0.3) -8.928px -12.304px 0px 0px,
-                rgba(242, 242, 242, 0.267) -10.176px -11.296px 0px 0px,
-                rgba(242, 242, 242, 0.23) -11.296px -10.176px 0px 0px,
-                rgba(242, 242, 242, 0.2) -12.304px -8.928px 0px 0px,
-                rgba(242, 242, 242, 0.17) -13.168px -7.6px 0px 0px,
-                rgba(242, 242, 242, 0.133) -13.888px -6.176px 0px 0px,
-                rgba(242, 242, 242, 0.1) -14.464px -4.704px 0px 0px,
-                rgba(242, 242, 242, 0.067) -14.864px -3.168px 0px 0px,
-                rgba(242, 242, 242, 0.03) -15.12px -1.584px 0px 0px,
-                rgba(242, 242, 242, 0) -15.2px 0px 0px 0px !important;
-        }
-
-        /* Fix the container to remove bright horizontal line - applies to BOTH modes */
-        .list__spinner,
-        .account__list-spinner,
-        .list__message {
-            border-top: none !important;
-            border-bottom: none !important;
-        }
-
-        /* Hide search field spinner - applies to BOTH modes */
-        ._search__spinner {
-            display: none !important;
-        }
 
         /* ===== WALLET PAGE FIXES (Dark Mode Only) ===== */
-        /* Fix wallet transaction header background */
-        html[data-theme="dark"] .wallet-transactions__head,
-        html[data-system-theme="dark"] .wallet-transactions__head {
-            background-color: #303030 !important;
-        }
-
         /* Remove default borders and margins */
         html[data-theme="dark"] .wallet-transactions__item,
         html[data-system-theme="dark"] .wallet-transactions__item {
@@ -325,6 +206,7 @@
         html[data-system-theme="dark"] .wallet-transactions__item + .wallet-transactions__item {
             border-top: 1px solid #404040 !important;
         }
+
 
         /* ===== REDEEM PAGE FIXES (Dark Mode Only) ===== */
         /* Fixes checkbox background colors as well as the reCAPTCHA text color */
@@ -340,16 +222,49 @@
             color: #a0a0a0 !important;
         }
 
-        html[data-theme="dark"] .select-checkbox,
-        html[data-theme="dark"] .select-checkbox:focus,
-        html[data-theme="dark"] .select-products-checkbox,
-        html[data-theme="dark"] .select-products-checkbox:focus,
-        html[data-system-theme="dark"] .select-checkbox,
-        html[data-system-theme="dark"] .select-checkbox:focus,
-        html[data-system-theme="dark"] .select-products-checkbox,
-        html[data-system-theme="dark"] .select-products-checkbox:focus {
-            background-color: #f2f2f2 !important;
+
+        /* ===== FRIENDS PAGE: INVITE MODAL (Dark Mode) ===== */
+        html[data-theme="dark"] ._modal,
+        html[data-system-theme="dark"] ._modal {
+            background-color: #2a2a2a !important;
         }
+
+        /* Header text */
+        html[data-theme="dark"] ._modal .module-header2__element,
+        html[data-system-theme="dark"] ._modal .module-header2__element {
+            color: #f2f2f2 !important;
+        }
+
+        /* Body text */
+        html[data-theme="dark"] ._modal .invite-text,
+        html[data-system-theme="dark"] ._modal .invite-text {
+            color: #888888 !important;
+        }
+
+        /* Search input */
+        html[data-theme="dark"] ._modal ._search__input,
+        html[data-system-theme="dark"] ._modal ._search__input {
+            background-color: #3d3d3d !important;
+            padding-left: 2.5em !important;
+        }
+
+        html[data-theme="dark"] ._modal .invite-search__icon,
+        html[data-system-theme="dark"] ._modal .invite-search__icon {
+            color: #f2f2f2 !important;
+            z-index: 1 !important;
+        }
+
+        ._modal .invite-result {
+            border: none !important;
+        }
+
+html[data-theme="dark"] .user-rectangle__items ._dropdown__item:hover,
+html[data-theme="dark"] .user-rectangle__items a._dropdown__item:hover,
+html[data-system-theme="dark"] .user-rectangle__items ._dropdown__item:hover,
+html[data-system-theme="dark"] .user-rectangle__items a._dropdown__item:hover {
+    background-color: #3d3d3d !important;
+    color: #ffffff !important;
+}
     `;
 
     // Only apply CSS on specific pages
@@ -443,7 +358,7 @@
     document.head.appendChild(style);
 
     // ===== ACCOUNT MENU: FIX MENU COLORS (select pages only) =====
-    if (window.location.pathname.includes('/account') ||
+    /*if (window.location.pathname.includes('/account') ||
         window.location.pathname.includes('/wallet') ||
         (window.location.pathname.includes('/u/') && !window.location.pathname.match(/\/u\/[^\/]+\/?$/))) {
         const style = document.createElement('style');
@@ -460,30 +375,10 @@
             }
         `;
         document.head.appendChild(style);
-    }
-
-    // ===== LIBRARY PAGE: OFFLINE INSTALLER ICON FIX =====
-    // Fix the hardcoded black fill in the dropdown icon
-    function fixDropdownIcon() {
-        const symbol = document.querySelector('#icon-dropdown-down');
-        if (symbol) {
-            const path = symbol.querySelector('path');
-            if (path) {
-                // Check current theme
-                const isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark';
-
-                if (isDarkMode) {
-                    path.setAttribute('fill', '#f2f2f2');
-                } else {
-                    // Restore original black color in light mode
-                    path.setAttribute('fill', '#000000');
-                }
-            }
-        }
-    }
+    }*/
 
     // ===== USER PAGES: FIX MENU COLORS =====
-    if (window.location.pathname.includes('/u/')) {
+    /*if (window.location.pathname.includes('/u/')) {
         const style = document.createElement('style');
         style.textContent = `
             html[data-theme="dark"] .user__data.user__data--with-orion-project-link,
@@ -498,7 +393,7 @@
             }
         `;
         document.head.appendChild(style);
-    }
+    }*/
 
     // ===== WISHLIST PAGE: FIX SAVE STATUS BACKGROUND =====
     if (window.location.pathname.includes('/wishlist')) {
@@ -527,6 +422,23 @@
             });
         }
     }
+
+    // ===== WISHLIST PAGE: Product row background color (dark mode only) =====
+    if (window.location.pathname.includes('/account/wishlist')) {
+        const style = document.createElement('style');
+        style.textContent = `
+            html[data-theme="dark"] .product-row-wrapper,
+            html[data-system-theme="dark"] .product-row-wrapper {
+                background-color: #303030 !important;
+            }
+            html[data-theme="light"] .product-row-wrapper,
+            html[data-system-theme="light"] .product-row-wrapper {
+                background-color: #e9e9e9 !important;
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
 
     // ===== WISHLIST PAGE: UPGRADE IMAGES TO HIGHER RESOLUTION =====
     if (window.location.pathname.includes('/wishlist')) {
@@ -581,6 +493,94 @@
         });
     }
 
+    // ===== WISHLIST PAGES: VARIOIUS FIXES ON PUBLIC WISHLISTS =====
+    if (window.location.pathname.includes('/u/') && window.location.pathname.includes('/wishlist')) {
+        function fixWishlistProductBackgrounds() {
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark' ||
+                          document.documentElement.getAttribute('data-system-theme') === 'dark';
+
+            // Fix product backgrounds
+            document.querySelectorAll('.product-state-holder').forEach(el => {
+                el.style.setProperty('background', isDark ? '#303030' : '#e9e9e9', 'important');
+                el.addEventListener('mouseenter', () => {
+                    el.style.setProperty('background', isDark ? '#3d3d3d' : '#f2f2f2', 'important');
+                });
+                el.addEventListener('mouseleave', () => {
+                    el.style.setProperty('background', isDark ? '#303030' : '#e9e9e9', 'important');
+                });
+            });
+
+            // Fix owned game opacity
+            document.querySelectorAll('.product-row.is-owned .price-btn').forEach(el => {
+                el.style.setProperty('opacity', '1', 'important');
+            });
+
+            // Fix owned text color
+            document.querySelectorAll('.price-btn__text--owned').forEach(el => {
+                el.style.setProperty('color', isDark ? '#f2f2f2' : '', 'important');
+                el.style.setProperty('opacity', '1', 'important');
+            });
+
+            // Fix search input background
+            document.querySelectorAll('._search__input').forEach(el => {
+                el.style.setProperty('background', 'transparent', 'important');
+            });
+
+            if (isDark) {
+                // Fix filter section borders
+                document.querySelectorAll('.filters__section ~ .filters__section > .filter').forEach(el => {
+                    el.style.setProperty('border-color', '#404040', 'important');
+                });
+
+                // Fix filter dropdown backgrounds
+                document.querySelectorAll('.filter__items._dropdown__items.js-not-toggle').forEach(el => {
+                    el.style.setProperty('background-color', '#303030', 'important');
+                });
+
+                // Fix filter dropdown items
+                document.querySelectorAll('.filter__items._dropdown__items.js-not-toggle ._dropdown__item').forEach(el => {
+                    el.style.setProperty('background-color', '#303030', 'important');
+                    el.addEventListener('mouseenter', () => {
+                        el.style.setProperty('background-color', '#3d3d3d', 'important');
+                    });
+                    el.addEventListener('mouseleave', () => {
+                        el.style.setProperty('background-color', '#303030', 'important');
+                    });
+                });
+
+                // Fix pagination and fake dropdown items
+                document.querySelectorAll('.filter__items._dropdown__items.js-not-toggle .pagin, .filter__items._dropdown__items.js-not-toggle ._fake_dropdown__item').forEach(el => {
+                    el.style.setProperty('background-color', '#303030', 'important');
+                });
+
+                // Fix sort/view dropdown backgrounds
+                document.querySelectorAll('.module-header-dd__items, .module-header-dd__items ._dropdown__item, .header-dropdown__items._dropdown__items > ._dropdown__item').forEach(el => {
+                    el.style.setProperty('background-color', '#303030', 'important');
+                    el.addEventListener('mouseenter', () => {
+                        el.style.setProperty('background-color', '#3d3d3d', 'important');
+                    });
+                    el.addEventListener('mouseleave', () => {
+                        el.style.setProperty('background-color', '#303030', 'important');
+                    });
+                });
+            }
+        }
+
+        fixWishlistProductBackgrounds();
+        setTimeout(fixWishlistProductBackgrounds, 500);
+
+        const observer = new MutationObserver(fixWishlistProductBackgrounds);
+        if (document.body) {
+            observer.observe(document.body, { childList: true, subtree: true });
+        }
+
+        const themeObserver = new MutationObserver(fixWishlistProductBackgrounds);
+        themeObserver.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['data-theme', 'data-system-theme']
+        });
+    }
+
     // ===== BUG FIXES =====
     // ===== ORDERS PAGE: FIX CAPITALIZATION (all modes) =====
     function fixOrdersCapitalization() {
@@ -602,18 +602,18 @@
     if (window.location.pathname.includes('/settings/orders')) {
         function cleanOrdersURL() {
             const hash = window.location.hash;
-            if (hash.includes('!%2F')) {
+            if (hash.includes('%2F%2F')) {
                 const cleanMatch = hash.match(/#!#%2F(.+)$/);
                 if (cleanMatch) {
                     let searchTerm = cleanMatch[1];
-                    searchTerm = searchTerm.replace(/(!%2F|!%2F2F)+/g, '');
+                    searchTerm = searchTerm.replace(/^(%2F)+/i, '');
 
-                    if (searchTerm) {
+					if (searchTerm) {
                         const cleanHash = `#!#%2F${searchTerm}`;
                         window.history.replaceState(null, '', window.location.pathname + cleanHash);
 
                         const searchInput = document.querySelector('.orders-header__search-input');
-                        if (searchInput && searchInput.value.includes('!%2F')) {
+                        if (searchInput && searchInput.value.includes('%2F')) {
                             searchInput.value = decodeURIComponent(searchTerm);
                             const event = new Event('input', { bubbles: true });
                             searchInput.dispatchEvent(event);
@@ -649,36 +649,18 @@
     // ===== INITIALIZATION: RUN FIXES ON LOAD =====
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => {
-            fixDropdownIcon();
             fixOrdersCapitalization();
             addCloudSavesLink();
         });
     } else {
-        fixDropdownIcon();
         fixOrdersCapitalization();
         addCloudSavesLink();
     }
 
     setTimeout(() => {
-        fixDropdownIcon();
         fixOrdersCapitalization();
         addCloudSavesLink();
     }, 1000);
-
-    // Watch for theme changes on the html element
-    const themeObserver = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-            if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
-                fixDropdownIcon();
-            }
-        });
-    });
-
-    // Observe the html element for data-theme attribute changes
-    themeObserver.observe(document.documentElement, {
-        attributes: true,
-        attributeFilter: ['data-theme']
-    });
 
     // Watch for text content changes (dropdown opening, etc)
     const textObserver = new MutationObserver(() => {
